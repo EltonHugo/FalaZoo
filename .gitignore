@@ -1,0 +1,21 @@
+# Arquivos do macOS
+.DS_Store
+
+# Configurações pessoais do Xcode
+xcuserdata/
+*.xcuserstate
+
+# Compilações
+build/
+DerivedData/
+
+# Swift Package Manager
+.build/
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Arquivos temporários
+*.swp
+*.tmp
