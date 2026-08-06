@@ -57,7 +57,7 @@ struct creator: View {
             let style = ImagePlaygroundStyle.animation
             
             let images = imageCreator.images(
-                for: [.text("Um cachorro com roupinha de circo")],
+                for: [.text("Um cachorro com ")],
                 style: style,
                 limit: 1
             )

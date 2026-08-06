@@ -14,7 +14,7 @@
 		CB7B8EC23021218F000763DA /* Exceptions for "Challenge06" folder in "Challenge06" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				KidTranslate/Info.plist,
+				Info.plist,
 			);
 			target = CB7B8EAC302106E9000763DA /* Challenge06 */;
 		};
