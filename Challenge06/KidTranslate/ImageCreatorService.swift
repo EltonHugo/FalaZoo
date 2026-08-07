@@ -11,11 +11,11 @@ import Observation
 
 @Observable
 
-class DetailViewModel {
+class ImageCreatorService {
     
     var generatedImage: CGImage?
     var isLoading = false
-    var errorMesage: String?
+    var errorMessage: String?
     
     @MainActor
     
@@ -23,14 +23,34 @@ class DetailViewModel {
         
         isLoading = true
         generatedImage = nil
-        errorMesage = nil
+        errorMessage = nil
         
         let prompt = """
-        Um único \(animalName) em stilo desenho infantil 
+        Um único \(animalName) em stilo desenho infantil.
+        Mostrar somente o animal inteiro, centralizado e sozinho.
         """
+        
+        do {
+            let imageCreator = try await ImageCreator()
+            
+            let images = imageCreator.images(for: [.text(prompt)], style: .illustration, limit: 1)
+            
+            for try await image in images {
+                generatedImage = image.cgImage
+                break
+            }
+            
+            if generatedImage == nil {
+                errorMessage = "Nenhuma imagem foi gerada."
+            }
+            
+        } catch {
+            errorMessage = "Erro ao gerar imagem: \(error.localizedDescription)"
+        }
+        
+        isLoading = false
+        
     }
-    
-    
 }
 
 

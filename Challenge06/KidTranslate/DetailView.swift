@@ -9,7 +9,10 @@ import SwiftUI
 
 struct DetailView: View {
     
-//    @Environment(AppCoordinator.self) var coordinator
+//    @State private var viewModel = DetailViewModel()
+    @State private var imageCreatorService = ImageCreatorService()
+    
+    //    @Environment(AppCoordinator.self) var coordinator
     
     var body: some View {
         ZStack{
@@ -76,13 +79,13 @@ struct DetailView: View {
                         .fill(Color.gray)
                         .opacity(0.15)
                         
-                    if let generatedImage = viewModel.generatedImage{
+                    if let generatedImage = imageCreatorService.generatedImage{
                         Image(decorative: generatedImage, scale: 1)
                             .resizable()
                             .scaledToFit()
                             .clipShape(RoundedRectangle(cornerRadius: 30))
                             .padding(12)
-                    } else if viewModel.isLoading {
+                    } else if imageCreatorService.isLoading {
                         ProgressView()
                     } else {
                         Image(systemName: "photo.trianglebadge.exclamationmark")
@@ -121,7 +124,7 @@ struct DetailView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .task {
-            await viewModel.generateImage(animalName: animal)
+            await imageCreatorService.generateImage(animalName: "cachorro")
         }
     }
 }
