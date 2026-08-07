@@ -11,7 +11,9 @@ import SwiftUI
 struct Challenge06App: App {
     var body: some Scene {
         WindowGroup {
-            SpeechDemoView()
+//            AnimalImageTestView(animalName: "coala")
+//            RecordingView()
+            TranslatorView()
         }
     }
 }

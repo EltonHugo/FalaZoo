@@ -3,7 +3,7 @@ import Speech
 
 struct SpeechDemoView: View {
     
-    @State var viewModel = RecordingViewModel()
+    @State var viewModel = SpeechService()
 
     var body: some View {
         VStack(spacing: 24) {

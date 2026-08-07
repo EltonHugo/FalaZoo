@@ -1,27 +1,6 @@
 import SwiftUI
 import FoundationModels
 
-@Generable
-struct KeywordExtraction: Equatable {
-    @Guide(description: "A palavra exata retirada do texto de origem, sem alterações, sinônimos ou traduções. Deve ser sempre um substantivo que representa um animal.")
-    let palavra: String
-    
-    @Guide(description: """
-        Escolha apenas um destes valores:
-
-        Sim → somente se a palavra for cachorro, gato, rato, cavalo ou coelho.
-
-        Não → qualquer outro animal ou ausência de animal.
-        """)
-        let isAnimal: String
-}
-
-struct ChatMessage: Identifiable {
-    let id = UUID()
-    let text: String
-    let isUser: Bool
-}
-
 struct ChatFoundationModelView: View {
     @State private var inputText: String = ""
     @State private var messages: [ChatMessage] = []

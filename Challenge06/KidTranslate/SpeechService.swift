@@ -10,7 +10,7 @@ import Speech
 import Observation
 
 @Observable
-final class RecordingViewModel {
+final class SpeechService {
     private(set) var transcript = ""
     private(set) var isRecording = false
     
