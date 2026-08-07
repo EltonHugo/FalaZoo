@@ -1,78 +1,89 @@
 import SwiftUI
 import ImagePlayground
 
-struct creator: View {
+struct AnimalImageTestView: View {
+    let animalName: String
+    
     @State private var generatedImage: CGImage?
     @State private var isLoading = false
     @State private var errorMessage: String?
 
     var body: some View {
-        VStack(spacing: 20) {
-            if let cgImage = generatedImage {
-                Image(decorative: cgImage, scale: 1.0)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 280)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-            } else {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.gray.opacity(0.1))
-                        .frame(height: 280)
-                    
-                    if isLoading {
-                        ProgressView("Gerando com Apple Intelligence...")
-                    } else {
-                        Image(systemName: "pawprint.fill")
-                            .font(.system(size: 40))
-                            .foregroundStyle(.tint)
-                    }
+        VStack {
+            ZStack {
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color.gray.opacity(0.12))
+                
+                if let generatedImage {
+                    Image(decorative: generatedImage, scale: 1.0)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(16)
+                } else if isLoading {
+                    ProgressView("Gerando imagem...")
+                } else if let errorMessage {
+                    Text(errorMessage)
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                } else {
+                    Image(systemName: "photo")
+                        .font(.system(size: 40))
+                        .foregroundStyle(.gray)
                 }
             }
-
-            if let errorMessage {
-                Text(errorMessage)
-                    .font(.caption)
-                    .foregroundStyle(.red)
-            }
-
-            Button("Gerar em Background") {
-                Task {
-                    await generateImageInternally()
-                }
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(isLoading)
+            .frame(width: 300, height: 300)
         }
         .padding()
+        .task {
+            await generateAnimalImage()
+        }
     }
 
-    private func generateImageInternally() async {
+    @MainActor
+    private func generateAnimalImage() async {
         isLoading = true
         errorMessage = nil
+        generatedImage = nil
+
+        let prompt = """
+        Um único \(animalName) em estilo de desenho infantil.
+        Mostrar somente o animal, inteiro, centralizado e sozinho.
+        Usar formas arredondadas, aparência amigável, cores suaves e contornos limpos.
+        Estilo de ilustração infantil, bonito e educativo.
+        Fundo simples e claro, sem texto, sem cenário complexo e sem outros animais.
+        """
 
         do {
-            // Nota: ImageCreator está depreciado/restrito em versões recentes
             let imageCreator = try await ImageCreator()
-            let style = ImagePlaygroundStyle.animation
-            
+
             let images = imageCreator.images(
-                for: [.text("Um cachorro com ")],
-                style: style,
+                for: [.text(prompt)],
+                style: .illustration,
                 limit: 1
             )
 
+            var receivedImage = false
+
             for try await image in images {
-                await MainActor.run {
-                    self.generatedImage = image.cgImage
-                    self.isLoading = false
-                }
+                self.generatedImage = image.cgImage
+                receivedImage = true
+                break
             }
+
+            if !receivedImage {
+                self.errorMessage = "Nenhuma imagem foi gerada."
+            }
+
         } catch {
-            await MainActor.run {
-                self.errorMessage = "Erro: \(error.localizedDescription)"
-                self.isLoading = false
-            }
+            self.errorMessage = "Erro ao gerar imagem: \(error.localizedDescription)"
         }
+
+        isLoading = false
     }
+}
+
+#Preview {
+    AnimalImageTestView(animalName: "cachorro")
 }
