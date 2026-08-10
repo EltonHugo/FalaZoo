@@ -54,32 +54,23 @@ class FoundationService {
         """
     )
     
-    func sendMessage() {
+    func sendMessage(inputText: String) async -> String {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty else { return }
-        
+        guard !text.isEmpty else { return "" }
+
         errorMessage = nil
         isGenerating = true
-        
-        Task {
-            do {
-                let response = try await session.respond(
-                    to: text,
-                    generating: KeywordExtraction.self
-                )
-                let result = response.content
-                await MainActor.run {
-                    let formatted = "Palavra: \(result.palavra)\nÉ animal da lista?: \(result.isAnimal)"
-                    print(formatted)
-                    message = formatted
-                    isGenerating = false
-                }
-            } catch {
-                await MainActor.run {
-                    errorMessage = "Erro ao gerar resposta: \(error.localizedDescription)"
-                    isGenerating = false
-                }
-            }
+        defer { isGenerating = false }
+
+        do {
+            let response = try await session.respond(
+                to: text
+            )
+            let result = response.content
+            return result
+        } catch {
+            errorMessage = "Erro ao gerar resposta: \(error.localizedDescription)"
+            return ""
         }
     }
 }

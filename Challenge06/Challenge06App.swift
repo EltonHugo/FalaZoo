@@ -12,8 +12,8 @@ struct Challenge06App: App {
     var body: some Scene {
         WindowGroup {
 //            AnimalImageTestView(animalName: "coala")
-//            RecordingView()
-            TranslatorView()
+            RecordingView()
+//            TranslatorView()
         }
     }
 }

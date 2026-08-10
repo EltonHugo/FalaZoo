@@ -19,6 +19,18 @@ class TranslateService {
     private let idiomaOrigem = Locale.Language(identifier: "pt_BR")
     private let idiomaDestino = Locale.Language(identifier: "en_US")
     
+    func translate(_ text: String) async -> String {
+        let textoLimpo = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !textoLimpo.isEmpty else { return "Digite alguma coisa." }
+        do {
+            let session = TranslationSession(installedSource: idiomaOrigem, target: idiomaDestino)
+            let response = try await session.translate(textoLimpo)
+            return response.targetText
+        } catch {
+            return "Erro na tradução."
+        }
+    }
+    
     func iniciarTraducao() {
         let textoLimpo = textoOriginal.trimmingCharacters(in: .whitespacesAndNewlines)
 
