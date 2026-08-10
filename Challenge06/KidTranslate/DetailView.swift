@@ -76,7 +76,7 @@ struct DetailView: View {
                                 
                         }
                         .contentShape(Rectangle())
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primary)
                         
                         Text(viewModel.text)
                             .font(.system(size: 28, weight: .medium, design: .rounded))
@@ -146,13 +146,13 @@ struct DetailView: View {
         }
         .task {
             await viewModel.setUp(inputText: transcript)
-            await imageCreatorService.generateImage(animalName: "cachorro")
-            if viewModel.animalClassifier.prediction!.confidence <= 5{
+            await imageCreatorService.generateImage(animalName: viewModel.englishAnimal)
+            let confidence = viewModel.animalClassifier.prediction?.confidence ?? 0.05
+            if confidence <= 0.05 {
                 showAlert.toggle()
-            } else{
+            } else {
                 isLoading = false
             }
-            
         }
         .alert("O animal não foi reconhecido", isPresented: $showAlert) {
             

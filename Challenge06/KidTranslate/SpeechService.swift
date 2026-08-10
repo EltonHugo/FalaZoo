@@ -2,14 +2,14 @@
 //  RecordingViewModel.swift
 //  Challenge06
 //
-//  Created by Elton Hugo Ferreira da Silva on 05/08/26.
-//
 
 import Foundation
 import Speech
 import Observation
+import AVFoundation
 
 @Observable
+@MainActor
 final class SpeechService {
     private(set) var transcript = ""
     private(set) var isRecording = false
@@ -28,36 +28,64 @@ final class SpeechService {
     }
     
     func startRecording() {
-        if audioEngine.isRunning {
+        // Se já estiver gravando ou com o motor ativo, interrompe primeiro
+        if isRecording || audioEngine.isRunning {
             stopRecording()
         }
         
         transcript = ""
         
-        let node = audioEngine.inputNode
-        request = SFSpeechAudioBufferRecognitionRequest()
-        
-        node.installTap(onBus: 0, bufferSize: 1024, format: node.outputFormat(forBus: 0)) { [self] buffer, _ in
-            request?.append(buffer)
+        // 1. Configura e ativa a AVAudioSession PRIMEIRO
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Erro ao configurar AVAudioSession: \(error.localizedDescription)")
+            return
         }
+        
+        let node = audioEngine.inputNode
+        node.removeTap(onBus: 0)
+        
+        // 2. Captura e valida o formato de áudio da entrada
+        let format = node.outputFormat(forBus: 0)
+        guard format.sampleRate > 0 else {
+            print("Erro: Formato de áudio inválido (0 Hz). O microfone não foi inicializado.")
+            stopRecording()
+            return
+        }
+        
+        request = SFSpeechAudioBufferRecognitionRequest()
+        guard let request = request else { return }
+        request.shouldReportPartialResults = true
+        
+        // 3. Instala o tap com segurança
+        node.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
+            self?.request?.append(buffer)
+        }
+        
         do {
             audioEngine.prepare()
             try audioEngine.start()
             isRecording = true
             
-            // Inicia o timer de silêncio inicial
             resetSilenceTimer()
             
-            task = recognizer?.recognitionTask(with: request!) { [weak self] result, error in
-                guard let self, self.isRecording else { return }
+            task = recognizer?.recognitionTask(with: request) { [weak self] result, error in
+                guard let self = self else { return }
                 
-                if let result {
-                    self.transcript = result.bestTranscription.formattedString
-                    self.resetSilenceTimer()
-                }
-                
-                if error != nil || (result?.isFinal ?? false) {
-                    self.stopRecording()
+                Task { @MainActor in
+                    guard self.isRecording else { return }
+                    
+                    if let result = result {
+                        self.transcript = result.bestTranscription.formattedString
+                        self.resetSilenceTimer()
+                    }
+                    
+                    if error != nil || (result?.isFinal ?? false) {
+                        self.stopRecording()
+                    }
                 }
             }
         } catch {
@@ -67,17 +95,32 @@ final class SpeechService {
     }
     
     func stopRecording() {
-        isRecording = false
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
+        silenceTimer?.invalidate()
+        silenceTimer = nil
+        
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0)
+        }
+        
         request?.endAudio()
+        request = nil
+        
         task?.cancel()
+        task = nil
+        
+        // Desativa a sessão de áudio para liberar o microfone
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        
+        isRecording = false
     }
     
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
-        silenceTimer = Timer.scheduledTimer(withTimeInterval: silenceTimeout, repeats: false) { [self] _ in
-            self.stopRecording()
+        silenceTimer = Timer.scheduledTimer(withTimeInterval: silenceTimeout, repeats: false) { [weak self] _ in
+            Task { @MainActor in
+                self?.stopRecording()
+            }
         }
     }
 }
