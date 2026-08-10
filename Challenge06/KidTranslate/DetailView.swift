@@ -16,6 +16,7 @@ struct DetailView: View {
     @StateObject private var speechManager = SpeechManager()
     @State var isLoading: Bool = true
     @State private var showAlert = false
+    @State private var imageCreatorService = ImageCreatorService()
     
     var body: some View {
         
@@ -52,7 +53,7 @@ struct DetailView: View {
                                     .font(.system(size: 30, weight: .medium))
                             }
                             .contentShape(Rectangle()) //faz toda a área da palavra e do ícone ser clicável
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.primary)
                             
                             Text(viewModel.animal)
                                 .font(.system(size: 28, weight: .medium, design: .rounded))
@@ -69,9 +70,10 @@ struct DetailView: View {
                         } label: {
                             Text(viewModel.englishText)
                                 .font(.system(size: 28, weight: .medium, design: .rounded))
-                            
+                                
                             Image(systemName: "speaker.wave.2.fill")
                                 .font(.system(size: 30, weight: .medium))
+                                
                         }
                         .contentShape(Rectangle())
                         .foregroundStyle(.black)
@@ -84,30 +86,34 @@ struct DetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 34)
                     
-                    //                //MARK: Imagem gerada
-                    //                ZStack{
-                    //                    RoundedRectangle(cornerRadius: 30)
-                    //                        .fill(Color.gray)
-                    //                        .opacity(0.15)
-                    //
-                    //                    if let generatedImage = viewModel.generatedImage{
-                    //                        Image(decorative: generatedImage, scale: 1)
-                    //                            .resizable()
-                    //                            .scaledToFit()
-                    //                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                    //                            .padding(12)
-                    //                    } else if viewModel.isLoading {
-                    //                        ProgressView()
-                    //                    } else {
-                    //                        Image(systemName: "photo.trianglebadge.exclamationmark")
-                    //                            .font(.system(size:40))
-                    //                            .foregroundStyle(.secondary)
-                    //                    }
-                    //                }
-                    //                .frame(maxWidth: .infinity)
-                    //                .frame(height: 380)
-                    //                .padding(.top, 28)
-                    //                .padding(.bottom, 20)
+                    //MARK: Imagem gerada
+                GeometryReader { geometry in
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color.gray)
+                            .opacity(0.15)
+                        
+                        if let generatedImage = imageCreatorService.generatedImage{
+                            Image(decorative: generatedImage, scale: 1)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(
+                                    width: geometry.size.width,
+                                    height: geometry.size.height)
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                        } else if imageCreatorService.isLoading {
+                            ProgressView()
+                        } else {
+                            Image(systemName: "photo.trianglebadge.exclamationmark")
+                                .font(.system(size:40))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                .frame(height: 380)
+                .padding(.top, 28)
+                .padding(.bottom, 20)
                     
                     Spacer()
                     
@@ -140,6 +146,7 @@ struct DetailView: View {
         }
         .task {
             await viewModel.setUp(inputText: transcript)
+            await imageCreatorService.generateImage(animalName: "cachorro")
             if viewModel.animalClassifier.prediction!.confidence <= 5{
                 showAlert.toggle()
             } else{
