@@ -18,7 +18,7 @@ struct RecordingView: View {
                 } label: {
                     Image(systemName: "microphone")
                         .font(.system(size: 44, weight: .medium))
-                        .foregroundStyle(Color("brown"))
+                        .foregroundStyle(Color("light_brown"))
                         .frame(width: 128, height: 128)
                         .background{
                             Circle()
@@ -31,9 +31,9 @@ struct RecordingView: View {
                 Text("Toque no microfone\ne diga um animal")
                     .font(Font.system(.title, design: .rounded))
                     .multilineTextAlignment(.center)
+                    
 
             }
-
         }
     }
 }

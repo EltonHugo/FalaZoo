@@ -18,39 +18,82 @@ class ImageCreatorService {
     var errorMessage: String?
     
     @MainActor
-    
+
     func generateImage(animalName: String) async {
         
         isLoading = true
         generatedImage = nil
         errorMessage = nil
         
-        let prompt = """
-        Um único \(animalName) em stilo desenho infantil.
-        Mostrar somente o animal inteiro, centralizado e sozinho.
-        """
-        
         do {
             let imageCreator = try await ImageCreator()
             
-            let images = imageCreator.images(for: [.text(prompt)], style: .illustration, limit: 1)
+            let images = imageCreator.images(
+                for: [.text("A cute dog")],
+                style: .illustration,
+                limit: 1
+            )
             
             for try await image in images {
                 generatedImage = image.cgImage
+                print("✅ IMAGEM GERADA")
                 break
             }
             
             if generatedImage == nil {
                 errorMessage = "Nenhuma imagem foi gerada."
+                print("⚠️ Terminou sem retornar imagem.")
             }
             
+        } catch let error as ImageCreator.Error {
+            
+            print("❌ IMAGE CREATOR ERROR:")
+            print(String(reflecting: error))
+            
+            errorMessage = "Erro: \(error.localizedDescription)"
+            
         } catch {
-            errorMessage = "Erro ao gerar imagem: \(error.localizedDescription)"
+            
+            print("❌ OUTRO ERRO:")
+            print(String(reflecting: error))
+            
+            errorMessage = "Erro: \(error.localizedDescription)"
         }
         
         isLoading = false
-        
     }
+//    func generateImage(animalName: String) async {
+//        
+//        isLoading = true
+//        generatedImage = nil
+//        errorMessage = nil
+//        
+//        let prompt = """
+//        Um único \(animalName) em stilo desenho infantil.
+//        Mostrar somente o animal inteiro, centralizado e sozinho.
+//        """
+//        
+//        do {
+//            let imageCreator = try await ImageCreator()
+//            
+//            let images = imageCreator.images(for: [.text(prompt)], style: .illustration, limit: 1)
+//            
+//            for try await image in images {
+//                generatedImage = image.cgImage
+//                break
+//            }
+//            
+//            if generatedImage == nil {
+//                errorMessage = "Nenhuma imagem foi gerada."
+//            }
+//            
+//        } catch {
+//            errorMessage = "Erro ao gerar imagem: \(error.localizedDescription)"
+//        }
+//        
+//        isLoading = false
+//        
+//    }
 }
 
 

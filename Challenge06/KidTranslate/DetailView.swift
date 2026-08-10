@@ -42,7 +42,7 @@ struct DetailView: View {
                                     .font(.system(size: 30, weight: .medium))
                             }
                             .contentShape(Rectangle()) //faz toda a área da palavra e do ícone ser clicável
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.primary)
 
                         Text("Cachorro")
                             .font(.system(size: 28, weight: .medium, design: .rounded))
@@ -58,12 +58,14 @@ struct DetailView: View {
                         } label: {
                             Text(#""The dog is happy""#)
                                 .font(.system(size: 28, weight: .medium, design: .rounded))
-                            
+                                
                             Image(systemName: "speaker.wave.2.fill")
                                 .font(.system(size: 30, weight: .medium))
+                                
                         }
                         .contentShape(Rectangle())
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.primary)
+//                        .foregroundStyle(.black)
                     
                     Text(#""O cachorro está feliz""#)
                         .font(.system(size: 28, weight: .medium, design: .rounded))
@@ -74,26 +76,30 @@ struct DetailView: View {
                 .padding(.top, 34)
                 
                 //MARK: Imagem gerada
-                ZStack{
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Color.gray)
-                        .opacity(0.15)
+                GeometryReader { geometry in
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color.gray)
+                            .opacity(0.15)
                         
-                    if let generatedImage = imageCreatorService.generatedImage{
-                        Image(decorative: generatedImage, scale: 1)
-                            .resizable()
-                            .scaledToFit()
-                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                            .padding(12)
-                    } else if imageCreatorService.isLoading {
-                        ProgressView()
-                    } else {
-                        Image(systemName: "photo.trianglebadge.exclamationmark")
-                            .font(.system(size:40))
-                            .foregroundStyle(.secondary)
+                        if let generatedImage = imageCreatorService.generatedImage{
+                            Image(decorative: generatedImage, scale: 1)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(
+                                    width: geometry.size.width,
+                                    height: geometry.size.height)
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                        } else if imageCreatorService.isLoading {
+                            ProgressView()
+                        } else {
+                            Image(systemName: "photo.trianglebadge.exclamationmark")
+                                .font(.system(size:40))
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
-                .frame(maxWidth: .infinity)
                 .frame(height: 380)
                 .padding(.top, 28)
                 .padding(.bottom, 20)
@@ -108,7 +114,7 @@ struct DetailView: View {
                 } label: {
                     Text("Dizer outra palavra")
                         .font(.system(size: 25, weight: .medium, design: .rounded))
-                        .foregroundStyle(Color("brown"))
+                        .foregroundStyle(Color("light_brown"))
                         .frame(maxWidth: .infinity)
                         .frame(height: 86)
                         .background{
