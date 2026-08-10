@@ -35,7 +35,7 @@ struct RecordingView: View {
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .detail:
-                    DetailView()
+                    DetailView(transcript: speechService.transcript)
                 case .recording:
                     RecordingView()
                 }

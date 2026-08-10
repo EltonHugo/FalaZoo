@@ -9,6 +9,13 @@ final class SpeechManager: ObservableObject {
     private let synthesizer = AVSpeechSynthesizer()
     
     func speak(_ text: String) {
+        do {
+                let session = AVAudioSession.sharedInstance()
+                try session.setCategory(.playback, mode: .default, options: .duckOthers)
+                try session.setActive(true)
+            } catch {
+                print("Erro ao configurar sessão de áudio: \(error)")
+            }
         // Evita que vários áudios sejam reproduzidos ao mesmo tempo.
         if synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
