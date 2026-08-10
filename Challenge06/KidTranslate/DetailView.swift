@@ -21,13 +21,15 @@ struct DetailView: View {
     var body: some View {
         
         ZStack{
+            Color("light_yellow")
+                .ignoresSafeArea()
+            
             if isLoading {
                 VStack{
                     ProgressView()
                 }
+                
             } else {
-                Color("light_yellow")
-                    .ignoresSafeArea()
                 
                 VStack(alignment: .leading, spacing: 0) {
                     // MARK: Palavra e traducão
@@ -111,9 +113,9 @@ struct DetailView: View {
                         }
                     }
                 }
-                .frame(height: 380)
-                .padding(.top, 28)
-                .padding(.bottom, 20)
+                .frame(height: 350)
+                .padding(.top, 20)
+                .padding(.bottom, 16)
                     
                     Spacer()
                     
@@ -138,6 +140,7 @@ struct DetailView: View {
                 } // fim da vstack
                 .padding(.horizontal, 28)
                 .padding(.top, 18)
+                .padding(.bottom, 20)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
@@ -160,14 +163,9 @@ struct DetailView: View {
                 coordinator.pop()
             }
         }
-        //        .task {
-        //            await viewModel.generateImage(animalName: animal)
-        //        }
     }
 }
 #Preview {
     DetailView(transcript: "cavalo")
         .environment(AppCoordinator())
 }
-//ViewModel.generatedImage
-//cordinator.pop() p voltar p o inicio
