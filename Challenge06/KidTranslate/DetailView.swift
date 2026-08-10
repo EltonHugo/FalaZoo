@@ -17,6 +17,7 @@ struct DetailView: View {
     @State var isLoading: Bool = true
     @State private var showAlert = false
     @State private var imageCreatorService = ImageCreatorService()
+    @State private var speechService = SpeechService()
     
     var body: some View {
         
@@ -148,12 +149,14 @@ struct DetailView: View {
             await viewModel.translator.traduzir(usando: sessao)
         }
         .task {
+            speechService.stopRecording()
             await viewModel.setUp(inputText: transcript)
-            await imageCreatorService.generateImage(animalName: viewModel.englishAnimal)
+            
             let confidence = viewModel.animalClassifier.prediction?.confidence ?? 0.05
             if confidence <= 0.05 {
                 showAlert.toggle()
             } else {
+                await imageCreatorService.generateImage(prompt: viewModel.englishText)
                 isLoading = false
             }
         }

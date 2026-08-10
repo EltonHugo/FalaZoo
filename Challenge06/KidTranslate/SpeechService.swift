@@ -22,12 +22,22 @@ final class SpeechService {
     private var silenceTimer: Timer?
     private let silenceTimeout: TimeInterval = 2.5
     
+    deinit {
+        audioEngine.stop()
+        audioEngine.inputNode.removeTap(onBus: 0)
+    }
+    
     func requestPermission() {
         SFSpeechRecognizer.requestAuthorization { _ in }
         AVAudioApplication.requestRecordPermission { _ in }
     }
     
     func startRecording() {
+        guard let recognizer, recognizer.isAvailable else {
+            print("Reconhecedor de fala indisponível.")
+            return
+        }
+        
         // Se já estiver gravando ou com o motor ativo, interrompe primeiro
         if isRecording || audioEngine.isRunning {
             stopRecording()
@@ -38,7 +48,7 @@ final class SpeechService {
         // 1. Configura e ativa a AVAudioSession PRIMEIRO
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+            try audioSession.setCategory(.playAndRecord, mode: .spokenAudio, options: [.duckOthers, .defaultToSpeaker])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             print("Erro ao configurar AVAudioSession: \(error.localizedDescription)")
@@ -72,7 +82,7 @@ final class SpeechService {
             
             resetSilenceTimer()
             
-            task = recognizer?.recognitionTask(with: request) { [weak self] result, error in
+            task = recognizer.recognitionTask(with: request) { [weak self] result, error in
                 guard let self = self else { return }
                 
                 Task { @MainActor in
@@ -117,8 +127,8 @@ final class SpeechService {
     
     private func resetSilenceTimer() {
         silenceTimer?.invalidate()
-        silenceTimer = Timer.scheduledTimer(withTimeInterval: silenceTimeout, repeats: false) { [weak self] _ in
-            Task { @MainActor in
+        silenceTimer = Timer.scheduledTimer(withTimeInterval: silenceTimeout, repeats: false) { _ in
+            Task { @MainActor [weak self] in
                 self?.stopRecording()
             }
         }
