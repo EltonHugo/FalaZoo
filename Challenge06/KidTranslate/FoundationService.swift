@@ -46,7 +46,8 @@ class FoundationService {
             Regras:
             - A frase deve ser adequada para crianças.
             - Use palavras simples e comuns.
-            - A frase deve ter no máximo 5 palavras.
+            - A frase deve sempre ser no presente. 
+            - A frase deve ter no máximo 4 palavras.
             - O animal deve ser o sujeito da frase.
             - Descreva uma ação ou característica simples.
             - Evite palavras difíceis e expressões complexas.
