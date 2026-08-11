@@ -18,10 +18,9 @@ struct RecordingView: View {
                 
                 VStack(spacing: 25) {
                     Button {
-//                        speechService.isRecording
-//                            ? speechService.stopRecording()
-//                            : speechService.startRecording()
-                        coordinator.push(.detail)
+                        speechService.isRecording
+                            ? speechService.stopRecording()
+                            : speechService.startRecording()
                     } label: {
                         Image(systemName:
                             speechService.isRecording
@@ -53,7 +52,7 @@ struct RecordingView: View {
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .detail:
-                    DetailView(transcript: "peixe")
+                    DetailView(transcript: speechService.transcript)
                 case .recording:
                     RecordingView()
                 }

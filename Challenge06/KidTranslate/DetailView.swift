@@ -62,32 +62,43 @@ struct DetailView: View {
                                 .font(.system(size: 28, weight: .medium, design: .rounded))
                                 .foregroundStyle(.secondary)
                         }
-                        Spacer() // faz com que nao quebre o layout
+                        /*Spacer()*/ // faz com que nao quebre o layout
                     } // fim da mark hstack da palavra e traducao
                     
                     // MARK: Frase e tradução
-                    VStack(alignment: .leading, spacing: 8){
-                        Button{
+                    VStack(alignment: .leading, spacing: 8) {
+
+                        Button {
                             print("Botão para ouvir a pronúncia da frase foi apertado")
                             speechManager.speak(viewModel.englishText)
                         } label: {
-                            Text(viewModel.englishText)
-                                .font(.system(size: 28, weight: .medium, design: .rounded))
-                                
-                            Image(systemName: "speaker.wave.2.fill")
-                                .font(.system(size: 30, weight: .medium))
-                                
+                            HStack(alignment: .center, spacing: 8) {
+
+                                Text(viewModel.englishText)
+                                    .font(.system(size: 28, weight: .medium, design: .rounded))
+                                    .lineLimit(2)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .multilineTextAlignment(.leading)
+                                    .layoutPriority(1)
+
+                                Image(systemName: "speaker.wave.2.fill")
+                                    .font(.system(size: 30, weight: .medium))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .contentShape(Rectangle())
                         .foregroundStyle(.primary)
-                        
+
                         Text(viewModel.text)
                             .font(.system(size: 28, weight: .medium, design: .rounded))
                             .foregroundStyle(.secondary)
-                        
-                    } // fim da mark vstack de frase e traducao
+                            .lineLimit(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .multilineTextAlignment(.leading)
+
+                    }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 34)
+                    .padding(.top, 20)
                     
                     //MARK: Imagem gerada
                 GeometryReader { geometry in
@@ -114,7 +125,7 @@ struct DetailView: View {
                         }
                     }
                 }
-                .frame(height: 350)
+                .frame(height: .infinity)
                 .padding(.top, 20)
                 .padding(.bottom, 16)
                     
@@ -156,7 +167,7 @@ struct DetailView: View {
             if confidence <= 0.05 {
                 showAlert.toggle()
             } else {
-                await imageCreatorService.generateImage(prompt: viewModel.englishText)
+                await imageCreatorService.generateImage(animalName: viewModel.englishAnimal)
                 isLoading = false
             }
         }
