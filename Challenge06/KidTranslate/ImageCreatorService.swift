@@ -34,7 +34,7 @@ class ImageCreatorService {
             let imageCreator = try await ImageCreator()
             
             let images = imageCreator.images(
-                for: [.text(prompt)],
+                for: [.text(animalName)],
                 style: .illustration,
                 limit: 1
             )

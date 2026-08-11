@@ -156,9 +156,6 @@ struct DetailView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
         }
-        .translationTask(viewModel.translator.configuracao) { sessao in
-            await viewModel.translator.traduzir(usando: sessao)
-        }
         .task {
             speechService.stopRecording()
             await viewModel.setUp(inputText: transcript)

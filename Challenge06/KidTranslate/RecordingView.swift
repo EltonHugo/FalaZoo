@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct RecordingView: View {
+    //MARK: Variáveis
     @State private var coordinator = AppCoordinator()
     @State private var speechService = SpeechService()
     
+    // FIXME: Esta View re-renderiza duas vezes ao alternar o estado do Toggle
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             ZStack {
