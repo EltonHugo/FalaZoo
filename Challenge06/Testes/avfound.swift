@@ -41,77 +41,77 @@ final class SpeechManager: ObservableObject {
         synthesizer.speak(utterance)
     }
 }
-
-struct ContentView: View {
-    
-    @StateObject private var speechManager = SpeechManager()
-    
-    private let word = "dog"
-    private let sentence = "The dog is happy"
-    
-    var body: some View {
-        NavigationStack {
-            VStack(spacing: 24) {
-                
-                Text("Listen and Repeat")
-                    .font(.largeTitle.bold())
-                
-                // Card da palavra
-                VStack(spacing: 12) {
-                    Text("Word")
-                        .font(.headline)
-                        .foregroundStyle(.secondary)
-                    
-                    Text(word)
-                        .font(.system(size: 45, weight: .bold))
-                    
-                    Button {
-                        speechManager.speak(word)
-                    } label: {
-                        Label("Listen to the word", systemImage: "speaker.wave.2.fill")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                .padding()
-                .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                
-                // Card da frase
-                VStack(spacing: 12) {
-                    Text("Sentence")
-                        .font(.headline)
-                        .foregroundStyle(.secondary)
-                    
-                    Text(sentence)
-                        .font(.title2.bold())
-                        .multilineTextAlignment(.center)
-                    
-                    Text("O dos está feliz")
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                    
-                    Button {
-                        speechManager.speak(sentence)
-                    } label: {
-                        Label("Listen to the sentence", systemImage: "speaker.wave.2.fill")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                .padding()
-                .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                
-                Spacer()
-            }
-            .padding()
-        }
-    }
-}
-
-#Preview {
-    ContentView()
-}
+//
+//struct ContentView: View {
+//    
+//    @StateObject private var speechManager = SpeechManager()
+//    
+//    private let word = "dog"
+//    private let sentence = "The dog is happy"
+//    
+//    var body: some View {
+//        NavigationStack {
+//            VStack(spacing: 24) {
+//                
+//                Text("Listen and Repeat")
+//                    .font(.largeTitle.bold())
+//                
+//                // Card da palavra
+//                VStack(spacing: 12) {
+//                    Text("Word")
+//                        .font(.headline)
+//                        .foregroundStyle(.secondary)
+//                    
+//                    Text(word)
+//                        .font(.system(size: 45, weight: .bold))
+//                    
+//                    Button {
+//                        speechManager.speak(word)
+//                    } label: {
+//                        Label("Listen to the word", systemImage: "speaker.wave.2.fill")
+//                            .frame(maxWidth: .infinity)
+//                            .padding()
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                }
+//                .padding()
+//                .background(.thinMaterial)
+//                .clipShape(RoundedRectangle(cornerRadius: 20))
+//                
+//                // Card da frase
+//                VStack(spacing: 12) {
+//                    Text("Sentence")
+//                        .font(.headline)
+//                        .foregroundStyle(.secondary)
+//                    
+//                    Text(sentence)
+//                        .font(.title2.bold())
+//                        .multilineTextAlignment(.center)
+//                    
+//                    Text("O dos está feliz")
+//                        .font(.body)
+//                        .foregroundStyle(.secondary)
+//                    
+//                    Button {
+//                        speechManager.speak(sentence)
+//                    } label: {
+//                        Label("Listen to the sentence", systemImage: "speaker.wave.2.fill")
+//                            .frame(maxWidth: .infinity)
+//                            .padding()
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                }
+//                .padding()
+//                .background(.thinMaterial)
+//                .clipShape(RoundedRectangle(cornerRadius: 20))
+//                
+//                Spacer()
+//            }
+//            .padding()
+//        }
+//    }
+//}
+//
+//#Preview {
+//    ContentView()
+//}

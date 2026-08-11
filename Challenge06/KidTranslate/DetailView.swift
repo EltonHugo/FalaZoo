@@ -116,6 +116,7 @@ struct DetailView: View {
                                     height: geometry.size.height)
                                 .clipped()
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .aspectRatio(contentMode: .fit)
                         } else if imageCreatorService.isLoading {
                             ProgressView()
                         } else {
@@ -125,7 +126,6 @@ struct DetailView: View {
                         }
                     }
                 }
-                .frame(height: .infinity)
                 .padding(.top, 20)
                 .padding(.bottom, 16)
                     

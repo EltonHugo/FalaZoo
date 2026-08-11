@@ -27,6 +27,6 @@ class DetailViewModel {
         emojiAnimal = animalClassifier.prediction?.emoji ?? "🐦"
         englishAnimal = await translator.translate(animal)
         text = await foundation.sendMessage(inputText: animal)
-        englishText = await translator.translate(text)
+        englishText = await translator.translate(englishText)
     }
 }

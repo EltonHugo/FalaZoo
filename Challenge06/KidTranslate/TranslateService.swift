@@ -16,8 +16,8 @@ class TranslateService {
     var traduzindo = false
     var configuracao: TranslationSession.Configuration?
     
-    private let idiomaOrigem = Locale.Language(identifier: "pt_BR")
-    private let idiomaDestino = Locale.Language(identifier: "en_US")
+    var idiomaOrigem = Locale.Language(identifier: "pt_BR")
+    var idiomaDestino = Locale.Language(identifier: "en_US")
     
     func translate(_ text: String) async -> String {
         let textoLimpo = text.trimmingCharacters(in: .whitespacesAndNewlines)

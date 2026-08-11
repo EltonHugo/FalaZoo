@@ -41,17 +41,19 @@ class FoundationService {
     
     private let session = LanguageModelSession(
         instructions: """
-            Crie uma frase simples em português usando o animal.
+            Create a simple English sentence using the animal.
 
-            Regras:
-            - A frase deve ser adequada para crianças.
-            - Use palavras simples e comuns.
-            - A frase deve sempre ser no presente. 
-            - A frase deve ter no máximo 4 palavras.
-            - O animal deve ser o sujeito da frase.
-            - Descreva uma ação ou característica simples.
-            - Evite palavras difíceis e expressões complexas.
-            - Retorne apenas a frase.
+            Rules:
+
+            * The sentence must be suitable for children.
+            * Use simple and common words.
+            * The sentence must always be in the present tense.
+            * The sentence must contain a maximum of 4 words.
+            * The animal must be the subject of the sentence.
+            * Describe a simple action or characteristic.
+            * Avoid difficult words and complex expressions.
+            * Return only the sentence.
+            * Remenber that sentence must contain just only 4 words
         """
     )
     
