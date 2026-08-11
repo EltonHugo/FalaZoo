@@ -25,7 +25,7 @@ class ImageCreatorService {
         generatedImage = nil
         errorMessage = nil
         
-        let prompt = "a detailed illustration of a \(animalName)"
+        let prompt = "A cute \(animalName)"
         
         print("Animal recebido: \(animalName)")
         print("Prompt enviado para o ImageCreator: \(prompt)")
