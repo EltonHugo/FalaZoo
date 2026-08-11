@@ -156,7 +156,7 @@ struct DetailView: View {
             if confidence <= 0.05 {
                 showAlert.toggle()
             } else {
-                await imageCreatorService.generateImage(prompt: viewModel.englishText)
+                await imageCreatorService.generateImage(animalName: viewModel.englishAnimal)
                 isLoading = false
             }
         }

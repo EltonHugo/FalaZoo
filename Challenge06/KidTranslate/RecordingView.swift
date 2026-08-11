@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct RecordingView: View {
+    //MARK: Variáveis
     @State private var coordinator = AppCoordinator()
     @State private var speechService = SpeechService()
     
+    // FIXME: Esta View re-renderiza duas vezes ao alternar o estado do Toggle
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             ZStack {
@@ -18,10 +20,9 @@ struct RecordingView: View {
                 
                 VStack(spacing: 25) {
                     Button {
-//                        speechService.isRecording
-//                            ? speechService.stopRecording()
-//                            : speechService.startRecording()
-                        coordinator.push(.detail)
+                        speechService.isRecording
+                            ? speechService.stopRecording()
+                            : speechService.startRecording()
                     } label: {
                         Image(systemName:
                             speechService.isRecording
@@ -53,7 +54,7 @@ struct RecordingView: View {
             .navigationDestination(for: Destination.self) { destination in
                 switch destination {
                 case .detail:
-                    DetailView(transcript: "peixe")
+                    DetailView(transcript: speechService.transcript)
                 case .recording:
                     RecordingView()
                 }

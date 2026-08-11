@@ -30,41 +30,4 @@ class TranslateService {
             return "Erro na tradução."
         }
     }
-    
-    func iniciarTraducao() {
-        let textoLimpo = textoOriginal.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        guard !textoLimpo.isEmpty else {
-            textoTraduzido = "Digite alguma coisa."
-            return
-        }
-
-        traduzindo = true
-        textoTraduzido = ""
-
-        if configuracao == nil {
-            configuracao = TranslationSession.Configuration(
-                source: idiomaOrigem,
-                target: idiomaDestino
-            )
-        } else {
-            configuracao?.invalidate()
-        }
-    }
-
-    func traduzir(usando sessao: TranslationSession) async {
-        do {
-            let resposta = try await sessao.translate(textoOriginal)
-            
-            await MainActor.run {
-                textoTraduzido = resposta.targetText
-                traduzindo = false
-            }
-        } catch {
-            await MainActor.run {
-                textoTraduzido = "Não foi possível traduzir: " + error.localizedDescription
-                traduzindo = false
-            }
-        }
-    }
 }

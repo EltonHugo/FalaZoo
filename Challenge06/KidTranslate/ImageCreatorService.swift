@@ -19,22 +19,22 @@ class ImageCreatorService {
     
     @MainActor
 
-    func generateImage(prompt: String) async {
+    func generateImage(animalName: String) async {
         
         isLoading = true
         generatedImage = nil
         errorMessage = nil
         
-//        let prompt = "A cute \(animalName)"
+        let prompt = "a detailed illustration of a \(animalName)"
         
-//        print("Animal recebido: \(animalName)")
+        print("Animal recebido: \(animalName)")
         print("Prompt enviado para o ImageCreator: \(prompt)")
         
         do {
             let imageCreator = try await ImageCreator()
             
             let images = imageCreator.images(
-                for: [.text(prompt)],
+                for: [.text(animalName)],
                 style: .illustration,
                 limit: 1
             )
