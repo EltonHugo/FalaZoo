@@ -1,28 +1,9 @@
 //import SwiftUI
 //import Translation
 //
-//struct ContentView: View {
+//struct TranslatorView: View {
 //
-//    // Texto digitado pelo usuário
-//    @State private var textoOriginal = ""
-//
-//    // Resultado da tradução
-//    @State private var textoTraduzido = ""
-//
-//    // Configuração da sessão de tradução
-//    @State private var configuracao:
-//        TranslationSession.Configuration?
-//
-//    // Controla o indicador de carregamento
-//    @State private var traduzindo = false
-//
-//    // Português do Brasil
-//    private let idiomaOrigem =
-//        Locale.Language(identifier: "pt_BR")
-//
-//    // Inglês
-//    private let idiomaDestino =
-//        Locale.Language(identifier: "en_US")
+//    @State var service = TranslateService()
 //
 //    var body: some View {
 //        NavigationStack {
@@ -32,7 +13,7 @@
 //                    Text("Texto em português")
 //                        .font(.headline)
 //
-//                    TextEditor(text: $textoOriginal)
+//                    TextEditor(text: $service.textoOriginal)
 //                        .frame(minHeight: 140)
 //                        .padding(8)
 //                        .overlay {
@@ -41,10 +22,10 @@
 //                        }
 //
 //                    Button {
-//                        iniciarTraducao()
+//                        service.iniciarTraducao()
 //                    } label: {
 //                        HStack {
-//                            if traduzindo {
+//                            if service.traduzindo {
 //                                ProgressView()
 //                                    .tint(.white)
 //                            } else {
@@ -52,7 +33,7 @@
 //                            }
 //
 //                            Text(
-//                                traduzindo
+//                                service.traduzindo
 //                                ? "Traduzindo..."
 //                                : "Traduzir"
 //                            )
@@ -62,8 +43,8 @@
 //                    }
 //                    .buttonStyle(.borderedProminent)
 //                    .disabled(
-//                        traduzindo ||
-//                        textoOriginal
+//                        service.traduzindo ||
+//                        service.textoOriginal
 //                            .trimmingCharacters(
 //                                in: .whitespacesAndNewlines
 //                            )
@@ -75,9 +56,9 @@
 //
 //                    GroupBox {
 //                        Text(
-//                            textoTraduzido.isEmpty
+//                            service.textoTraduzido.isEmpty
 //                            ? "A tradução aparecerá aqui."
-//                            : textoTraduzido
+//                            : service.textoTraduzido
 //                        )
 //                        .frame(
 //                            maxWidth: .infinity,
@@ -91,60 +72,18 @@
 //            }
 //            .navigationTitle("Tradutor")
 //        }
-//        .translationTask(configuracao) { sessao in
-//            await traduzir(usando: sessao)
+//        .translationTask(service.configuracao) { sessao in
+//            await service.traduzir(usando: sessao)
+//        }
+//        .onAppear {
+//            service.textoOriginal = "cachorro"
+//            service.iniciarTraducao()
 //        }
 //    }
 //
-//    private func iniciarTraducao() {
-//        let textoLimpo = textoOriginal
-//            .trimmingCharacters(
-//                in: .whitespacesAndNewlines
-//            )
-//
-//        guard !textoLimpo.isEmpty else {
-//            textoTraduzido = "Digite alguma coisa."
-//            return
-//        }
-//
-//        traduzindo = true
-//        textoTraduzido = ""
-//
-//        if configuracao == nil {
-//            configuracao = TranslationSession.Configuration(
-//                source: idiomaOrigem,
-//                target: idiomaDestino
-//            )
-//        } else {
-//            // Faz a tarefa ser executada novamente
-//            configuracao?.invalidate()
-//        }
-//    }
-//
-//    private func traduzir(
-//        usando sessao: TranslationSession
-//    ) async {
-//        do {
-//            let resposta = try await sessao.translate(
-//                textoOriginal
-//            )
-//
-//            await MainActor.run {
-//                textoTraduzido = resposta.targetText
-//                traduzindo = false
-//            }
-//        } catch {
-//            await MainActor.run {
-//                textoTraduzido =
-//                    "Não foi possível traduzir: " +
-//                    error.localizedDescription
-//
-//                traduzindo = false
-//            }
-//        }
-//    }
+//    
 //}
 //
 //#Preview {
-//    ContentView()
+//    TranslatorView()
 //}
