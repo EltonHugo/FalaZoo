@@ -32,6 +32,36 @@ final class SpeechService {
         AVAudioApplication.requestRecordPermission { _ in }
     }
     
+    func checkAndRequestPermissions() async -> Bool {
+        let speechStatus = SFSpeechRecognizer.authorizationStatus()
+        let speechGranted: Bool
+        
+        if speechStatus == .notDetermined {
+            speechGranted = await withCheckedContinuation { continuation in
+                SFSpeechRecognizer.requestAuthorization { status in
+                    continuation.resume(returning: status == .authorized)
+                }
+            }
+        } else {
+            speechGranted = (speechStatus == .authorized)
+        }
+        
+        guard speechGranted else { return false }
+        
+        let recordGranted: Bool
+        if #available(iOS 17.0, *) {
+            recordGranted = await AVAudioApplication.requestRecordPermission()
+        } else {
+            recordGranted = await withCheckedContinuation { continuation in
+                AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                    continuation.resume(returning: granted)
+                }
+            }
+        }
+        
+        return recordGranted
+    }
+    
     func startRecording() {
         guard let recognizer, recognizer.isAvailable else {
             print("Reconhecedor de fala indisponível.")

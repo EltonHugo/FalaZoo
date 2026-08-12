@@ -20,14 +20,25 @@ struct RecordingView: View {
                 
                 VStack(spacing: 25) {
                     Button {
-                        speechService.isRecording
-                            ? speechService.stopRecording()
-                            : speechService.startRecording()
+                        Task {
+                            // 1. Validação assíncrona da permissão
+                            let hasPermission = await speechService.checkAndRequestPermissions()
+                            guard hasPermission else {
+                                // Notificar interface ou redirecionar para Configurações
+                                return
+                            }
+                            
+                            if speechService.isRecording {
+                                speechService.stopRecording()
+                            } else {
+                                speechService.startRecording()
+                            }
+                        }
                     } label: {
                         Image(systemName:
-                            speechService.isRecording
-                            ? "microphone.fill"
-                            : "microphone"
+                                speechService.isRecording
+                              ? "microphone.fill"
+                              : "microphone"
                         )
                         .font(.system(size: 44, weight: .medium))
                         .foregroundStyle(
@@ -38,10 +49,10 @@ struct RecordingView: View {
                         .frame(width: 128, height: 128)
                         .background(
                             Circle().fill(Color("beige"))
-                            .shadow(radius: 5, y: 3))
+                                .shadow(radius: 5, y: 3))
                     }
                     
-                     
+                    
                     Text(speechService.isRecording
                          ? "Estou ouvindo..."
                          : "Toque no microfone\ne diga um animal"
