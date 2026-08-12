@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		CB7B8EAD302106E9000763DA /* Challenge06.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge06.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB7B8EAD302106E9000763DA /* FalaZoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FalaZoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CB7B8EC23021218F000763DA /* Exceptions for "Challenge06" folder in "Challenge06" target */ = {
+		CB7B8EC23021218F000763DA /* Exceptions for "Challenge06" folder in "FalaZoo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = CB7B8EAC302106E9000763DA /* Challenge06 */;
+			target = CB7B8EAC302106E9000763DA /* FalaZoo */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -24,7 +24,7 @@
 		CB7B8EAF302106E9000763DA /* Challenge06 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				CB7B8EC23021218F000763DA /* Exceptions for "Challenge06" folder in "Challenge06" target */,
+				CB7B8EC23021218F000763DA /* Exceptions for "Challenge06" folder in "FalaZoo" target */,
 			);
 			path = Challenge06;
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		CB7B8EAE302106E9000763DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB7B8EAD302106E9000763DA /* Challenge06.app */,
+				CB7B8EAD302106E9000763DA /* FalaZoo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB7B8EAC302106E9000763DA /* Challenge06 */ = {
+		CB7B8EAC302106E9000763DA /* FalaZoo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB7B8EB8302106EA000763DA /* Build configuration list for PBXNativeTarget "Challenge06" */;
+			buildConfigurationList = CB7B8EB8302106EA000763DA /* Build configuration list for PBXNativeTarget "FalaZoo" */;
 			buildPhases = (
 				CB7B8EA9302106E9000763DA /* Sources */,
 				CB7B8EAA302106E9000763DA /* Frameworks */,
@@ -76,11 +76,11 @@
 			fileSystemSynchronizedGroups = (
 				CB7B8EAF302106E9000763DA /* Challenge06 */,
 			);
-			name = Challenge06;
+			name = FalaZoo;
 			packageProductDependencies = (
 			);
 			productName = Challenge06;
-			productReference = CB7B8EAD302106E9000763DA /* Challenge06.app */;
+			productReference = CB7B8EAD302106E9000763DA /* FalaZoo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "Challenge06" */;
+			buildConfigurationList = CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "FalaZoo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CB7B8EAC302106E9000763DA /* Challenge06 */,
+				CB7B8EAC302106E9000763DA /* FalaZoo */,
 			);
 		};
 /* End PBXProject section */
@@ -351,7 +351,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "Challenge06" */ = {
+		CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "FalaZoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB7B8EB6302106EA000763DA /* Debug */,
@@ -360,7 +360,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB7B8EB8302106EA000763DA /* Build configuration list for PBXNativeTarget "Challenge06" */ = {
+		CB7B8EB8302106EA000763DA /* Build configuration list for PBXNativeTarget "FalaZoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB7B8EB9302106EA000763DA /* Debug */,
