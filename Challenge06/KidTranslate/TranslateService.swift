@@ -11,19 +11,17 @@ import Translation
 
 @Observable
 class TranslateService {
-    var textoOriginal = ""
-    var textoTraduzido = ""
-    var traduzindo = false
-    var configuracao: TranslationSession.Configuration?
+    var originalText = ""
+    var translatedText = ""
     
-    private let idiomaOrigem = Locale.Language(identifier: "pt_BR")
-    private let idiomaDestino = Locale.Language(identifier: "en_US")
+    var inputLanguage = Locale.Language(identifier: "pt_BR")
+    var outputLanguage = Locale.Language(identifier: "en_US")
     
     func translate(_ text: String) async -> String {
         let textoLimpo = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !textoLimpo.isEmpty else { return "Digite alguma coisa." }
         do {
-            let session = TranslationSession(installedSource: idiomaOrigem, target: idiomaDestino)
+            let session = TranslationSession(installedSource: inputLanguage, target: outputLanguage)
             let response = try await session.translate(textoLimpo)
             return response.targetText
         } catch {

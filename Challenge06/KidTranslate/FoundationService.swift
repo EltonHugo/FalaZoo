@@ -12,7 +12,7 @@ import FoundationModels
 @Generable
 struct KeywordExtraction: Equatable {
     @Guide(description: "A palavra exata retirada do texto de origem, sem alterações, sinônimos ou traduções. Deve ser sempre um substantivo que representa um animal.")
-    let palavra: String
+    let word: String
     
     @Guide(description: """
         Escolha apenas um destes valores:
@@ -39,7 +39,7 @@ class FoundationService {
     var animal: String?
     // Sessão do modelo. Você pode passar instruções (system prompt) aqui se quiser.
     
-    private let session = LanguageModelSession(
+    var instructions = LanguageModelSession(
         instructions: """
             Crie uma frase simples em português usando o animal.
 
@@ -55,7 +55,7 @@ class FoundationService {
         """
     )
     
-    func sendMessage(inputText: String) async -> String {
+    func generate(inputText: String) async -> String {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return "" }
 
@@ -64,7 +64,7 @@ class FoundationService {
         defer { isGenerating = false }
 
         do {
-            let response = try await session.respond(
+            let response = try await instructions.respond(
                 to: text
             )
             let result = response.content
