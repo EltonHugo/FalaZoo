@@ -4,9 +4,8 @@
 //
 
 import Foundation
-import Speech
 import Observation
-import AVFoundation
+import Speech
 
 @Observable
 @MainActor

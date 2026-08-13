@@ -1,6 +1,6 @@
 import SwiftUI
+import Speech
 import Combine
-import AVFoundation
 
 @MainActor
 final class SpeechManager: ObservableObject {
