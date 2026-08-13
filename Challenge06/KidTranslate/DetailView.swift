@@ -24,7 +24,7 @@ struct DetailView: View {
         
         ZStack {
             
-            Color("light_yellow")
+            Color("appBackground")
                 .ignoresSafeArea()
             
             if isLoading {
@@ -227,18 +227,18 @@ struct DetailView: View {
                                 design: .rounded
                             )
                         )
-                        .foregroundStyle(Color("light_brown"))
+                        .foregroundStyle(Color("buttonForeground"))
                         .frame(maxWidth: .infinity)
                         .frame(height: 76)
                         .background {
                             RoundedRectangle(cornerRadius: 28)
-                                .fill(Color("beige"))
+                                .fill(Color("buttonBackground"))
                         }
                 }
                 .padding(.horizontal, 28)
                 .padding(.top, 8)
                 .padding(.bottom, 6) // margem pequena e fixa até a borda, em vez de grudar
-                .background(Color("light_yellow"))
+                .background(Color("appBackground"))
             }
         }
         
