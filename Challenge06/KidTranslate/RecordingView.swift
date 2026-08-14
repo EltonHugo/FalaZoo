@@ -16,7 +16,7 @@ struct RecordingView: View {
     var body: some View {
         NavigationStack(path: $coordinator.path) {
             ZStack {
-                Color("light_yellow").ignoresSafeArea()
+                Color("appBackground").ignoresSafeArea()
                 
                 VStack(spacing: 25) {
                     Button {
@@ -44,11 +44,11 @@ struct RecordingView: View {
                         .foregroundStyle(
                             speechService.isRecording
                             ? Color.red
-                            : Color("light_brown")
+                            : Color("buttonForeground")
                         )
                         .frame(width: 128, height: 128)
                         .background(
-                            Circle().fill(Color("beige"))
+                            Circle().fill(Color("buttonBackground"))
                                 .shadow(radius: 5, y: 3))
                     }
                     

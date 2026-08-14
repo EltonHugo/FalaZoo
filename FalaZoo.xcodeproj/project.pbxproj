@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "Challenge06" */;
+			buildConfigurationList = CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "FalaZoo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -351,7 +351,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "Challenge06" */ = {
+		CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "FalaZoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB7B8EB6302106EA000763DA /* Debug */,
