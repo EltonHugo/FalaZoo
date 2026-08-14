@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "Challenge06" */;
+			buildConfigurationList = CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "FalaZoo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -268,6 +268,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Challenge06/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FalaZoo;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "\"O audio sera usado para tradução\"";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Precisamos reconher a voz";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -315,6 +316,7 @@
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Challenge06/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FalaZoo;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "\"O audio sera usado para tradução\"";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Precisamos reconher a voz";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -351,7 +353,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "Challenge06" */ = {
+		CB7B8EA8302106E9000763DA /* Build configuration list for PBXProject "FalaZoo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB7B8EB6302106EA000763DA /* Debug */,
