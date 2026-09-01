@@ -17,7 +17,6 @@ Uma experiência iOS desenvolvida para explorar Inteligência Artificial e tecno
 ---
 
 ## Sobre o projeto
-## Sobre o projeto
 
 O **FalaZoo** é uma prova de conceito desenvolvida para investigar como diferentes tecnologias do ecossistema Apple podem ser integradas em uma aplicação iOS.
 
@@ -42,7 +41,11 @@ A demonstração apresenta dois cenários da aplicação:
 - **“O gato toma leite”** — o FalaZoo recebe uma frase completa, identifica o animal presente na transcrição e executa o fluxo até apresentar o resultado. Também são demonstrados os recursos de áudio para reprodução da palavra e da frase em inglês.
 - **“Grilo”** — como esse animal não pertence às categorias suportadas pelo modelo, a aplicação apresenta o estado de não reconhecimento.
 
-[▶️ **Assistir à demonstração do FalaZoo**](readme-assets/falazoo-demo.mov)
+<a href="https://github.com/user-attachments/assets/8561c29a-5ef7-4c28-8840-10bc98f0a88d">
+  ▶️ <strong>Assistir à demonstração do FalaZoo</strong>
+</a>
+
+
 
 ---
 
