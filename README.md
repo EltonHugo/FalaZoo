@@ -1,17 +1,13 @@
 # 🐾 FalaZoo
 
-<p align="center">
-  <img src="readme-assets/app-icon.png" width="110" alt="Ícone do FalaZoo">
-</p>
+**PoC — Proof of Concept**
+
+Uma experiência iOS desenvolvida para explorar Inteligência Artificial e tecnologias multimodais no ecossistema Apple.
 
 <p align="center">
-  <strong>Uma prova de conceito iOS que explora Inteligência Artificial e experiências multimodais no ecossistema Apple.</strong>
-</p>
-
-<p align="center">
-  <img src="readme-assets/result-light.png" width="28%" alt="Resultado do FalaZoo em modo claro">
+  <img src="readme-assets/result-light.png" width="23%" alt="Resultado do FalaZoo em modo claro">
   &nbsp;&nbsp;&nbsp;
-  <img src="readme-assets/result-dark.png" width="28%" alt="Resultado do FalaZoo em modo escuro">
+  <img src="readme-assets/result-dark.png" width="23%" alt="Resultado do FalaZoo em modo escuro">
 </p>
 
 <p align="center">
@@ -20,6 +16,7 @@
 
 ---
 
+## Sobre o projeto
 ## Sobre o projeto
 
 O **FalaZoo** é uma prova de conceito desenvolvida para investigar como diferentes tecnologias do ecossistema Apple podem ser integradas em uma aplicação iOS.
@@ -45,7 +42,7 @@ A demonstração apresenta dois cenários da aplicação:
 - **“O gato toma leite”** — o FalaZoo recebe uma frase completa, identifica o animal presente na transcrição e executa o fluxo até apresentar o resultado. Também são demonstrados os recursos de áudio para reprodução da palavra e da frase em inglês.
 - **“Grilo”** — como esse animal não pertence às categorias suportadas pelo modelo, a aplicação apresenta o estado de não reconhecimento.
 
-[▶️ **Assistir à demonstração do FalaZoo**](readme-assets/falazoo-demo.mp4)
+[▶️ **Assistir à demonstração do FalaZoo**](readme-assets/falazoo-demo.mov)
 
 ---
 
@@ -97,11 +94,11 @@ A interface foi desenvolvida em **SwiftUI**, com foco em uma experiência simple
 Também foram considerados diferentes estados da interação, como **pronto para ouvir, escuta ativa, processamento, resultado e erro**.
 
 <p align="center">
-  <img src="readme-assets/ready-light.png" width="24%" alt="FalaZoo pronto para receber uma entrada">
+  <img src="readme-assets/ready-light.png" width="23%" alt="FalaZoo pronto para receber uma entrada">
   &nbsp;&nbsp;
-  <img src="readme-assets/listening-light.png" width="24%" alt="FalaZoo durante o reconhecimento da fala">
+  <img src="readme-assets/listening-light.png" width="23%" alt="FalaZoo durante o reconhecimento da fala">
   &nbsp;&nbsp;
-  <img src="readme-assets/result-light.png" width="24%" alt="Resultado apresentado pelo FalaZoo">
+  <img src="readme-assets/result-light.png" width="23%" alt="Resultado apresentado pelo FalaZoo">
 </p>
 
 <p align="center">
